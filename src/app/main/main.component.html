@@ -1,0 +1,7 @@
+<div class="posts">
+    <div class="post" *ngFor="let post of posts">
+        <div class="cover" [ngStyle]="{'background-image': 'url('+ post.data.cover +')'}"></div>
+        <h3 id="{{post.id}}">{{post.data.title}}  <span (click)="deletePost(post.id, post.data.fileref)">Delete</span></h3>
+       
+    </div>
+</div>

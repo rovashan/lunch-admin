@@ -1,0 +1,21 @@
+
+
+
+<section class="addformsection">
+  <br/>
+  <form (ngSubmit)="addPost(postsForm.value)" [formGroup]="postsForm">
+      <a routerLink='/'> <i class="fas fa-arrow-left"></i> Back</a>
+    <p>Fill the form to add a new post.</p>  
+    <label for="title">Title:</label>
+    <input type="text" formControlName="title">
+  
+    <label for="content">Content:</label>
+    <textarea formControlName="content"></textarea>
+
+    <label for="cover" class="cover"><i class="fas fa-upload"></i> Choose a file</label>
+    <input type="file" name="cover" id="cover" (change)="handleInput($event)" formControlName="cover">
+  
+    <input type="submit" [disabled]="!postsForm.valid" value="Submit">
+  </form>
+  <p class="percent" *ngIf="percentage">Uploading File: {{percentage}} %</p>
+</section>
