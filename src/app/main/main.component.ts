@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FireserviceService } from "../fireservice.service";
+import { DocumentReference, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 
 @Component({
@@ -12,6 +13,9 @@ export class MainComponent implements OnInit {
   constructor(private firestoreService: FireserviceService) { }
   posts: any[];
   products: any[];
+  weeklyMenu: any[];
+
+  daysOfWeek: any[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
   getPosts(){
     this.firestoreService.getPosts().subscribe((posts) => {
@@ -41,6 +45,42 @@ export class MainComponent implements OnInit {
     })
   }
 
+  getWeeklyMenu(){
+    this.firestoreService.getWeeklyMenu().subscribe((weeklyMenu) => {
+      
+      this.weeklyMenu = [];
+      weeklyMenu.map(menu => {
+
+        // let x: DocumentReference[]  = menu.payload.doc.data() as DocumentReference[];
+
+        // x.forEach(element => {
+        //   console.log('doc:', element);
+        // });
+        
+
+       this.weeklyMenu.push({
+          id: menu.payload.doc.id,
+          data: menu.payload.doc.data()
+        });
+
+
+        console.log('menu: ', menu.payload.doc.data());
+      });
+
+      this.weeklyMenu.forEach(element => {
+          
+        let x: DocumentReference = element.data as DocumentReference;
+
+        x.get().then( data => {
+         console.log('data:', data);
+        })
+        
+      });
+
+      console.log('weeklyMenu:', this.weeklyMenu);
+    })
+  }
+
 
   
   deletePost(id:string, image: string){
@@ -52,6 +92,8 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.getPosts();
     this.getProducts();
+    this.getWeeklyMenu();
   }
+
 
 }

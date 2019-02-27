@@ -116,6 +116,11 @@ export class FireserviceService {
   getProducts() {
     return this.firestore.collection("/menu/mains/products").snapshotChanges();    
   }
+
+  getWeeklyMenu() {
+    return this.firestore.collection("/weeklymenu/2019-02-11/plans/classic/weekdays").snapshotChanges();
+  }
+
 }
 
 

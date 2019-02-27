@@ -11,9 +11,16 @@
 </div>
 
 
-<mat-grid-list cols="4" [style.background]="'skyblue'">
-    <mat-grid-tile *ngFor="let product of products">
-        {{ product.data.name }}
+<mat-grid-list cols="5" [style.background]="'skyblue'">
+    <mat-grid-tile *ngFor="let day of daysOfWeek" [style.border-right]="'1px solid  #ddd'">
+        <mat-grid-tile-header>{{ day }}</mat-grid-tile-header>
+
+        <div *ngFor="let meal of weeklyMenu">
+            <label for="title">{{ meal.data }}</label>
+            <input type="text" formControlName="title">
+           
+        </div>
     </mat-grid-tile>
+
 
 </mat-grid-list>
