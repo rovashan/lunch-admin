@@ -10,6 +10,7 @@ import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 //service
 import { FireserviceService } from "./fireservice.service";
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [AngularFirestore, FireserviceService ,{ provide: StorageBucket, useValue: "gs://lunchpal-6437d.appspot.com"}],
   bootstrap: [AppComponent]

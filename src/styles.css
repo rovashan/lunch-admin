@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0px;
-    background: rgb(19, 23, 32);  /* fallback for old browsers */
+    /* background: rgb(19, 23, 32);  fallback for old browsers */
     color: #fff;
     font-family: "poppins"
 }
@@ -17,7 +17,7 @@ body * {
 }
 
 .container {
-    width: 80%;
+    /* width: 80%; */
     margin: 0 auto;
     background: rgb(8, 5, 27);
     -webkit-box-shadow: 0px 10px 12px -10px rgba(0,0,0,0.75);
@@ -27,21 +27,21 @@ body * {
 
 header {
     position: relative;
-    height: 400px;
+    height: 200px;
     overflow: hidden;
     border-bottom: 1px solid rgb(25, 18, 80);
   
 }
 
 header div {
-    padding-top: 100px;
-    width: 40%;
+    /* padding-top: 50px; */
+    /* width: 40%; */
     padding-left: 30px;
 }
 
 header div h1 {
     font-size: 3rem;
-    line-height: 3rem;
+    /* line-height: 3rem; */
 }
 header div a {
     border-radius: 5px;
@@ -160,3 +160,6 @@ form a {
     color: #fff;
     text-decoration: none;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

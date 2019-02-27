@@ -11,6 +11,7 @@ export class MainComponent implements OnInit {
 
   constructor(private firestoreService: FireserviceService) { }
   posts: any[];
+  products: any[];
 
   getPosts(){
     this.firestoreService.getPosts().subscribe((posts) => {
@@ -26,6 +27,21 @@ export class MainComponent implements OnInit {
     })
   }
 
+  getProducts(){
+    this.firestoreService.getProducts().subscribe((products) => {
+      
+      this.products = [];
+      products.map(product => {
+       this.products.push({
+          id: product.payload.doc.id,
+          data: product.payload.doc.data()
+        })
+      })
+      console.log('products:', this.products);
+    })
+  }
+
+
   
   deletePost(id:string, image: string){
     console.log(image)
@@ -35,6 +51,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.getPosts();
+    this.getProducts();
   }
 
 }
