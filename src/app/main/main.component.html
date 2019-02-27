@@ -15,10 +15,9 @@
     <mat-grid-tile *ngFor="let day of daysOfWeek" [style.border-right]="'1px solid  #ddd'">
         <mat-grid-tile-header>{{ day }}</mat-grid-tile-header>
 
-        <div *ngFor="let meal of weeklyMenu">
-            <label for="title">{{ meal.data }}</label>
-            <input type="text" formControlName="title">
-           
+        <div *ngFor="let meal of weeklyMeals">
+            <label for="title">{{ meal.name }}</label>
+                       
         </div>
     </mat-grid-tile>
 

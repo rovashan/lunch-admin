@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FireserviceService } from "../fireservice.service";
-import { DocumentReference, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { FireserviceService } from "../fireservice.service";
+import { DocumentReference, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -10,19 +10,20 @@ import { DocumentReference, AngularFirestoreDocument } from '@angular/fire/fires
 })
 export class MainComponent implements OnInit {
 
-  constructor(private firestoreService: FireserviceService) { }
+  constructor(private firestoreService: FireserviceService, private firestore: AngularFirestore) { }
   posts: any[];
   products: any[];
   weeklyMenu: any[];
+  weeklyMeals: any[];
 
   daysOfWeek: any[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
-  getPosts(){
+  getPosts() {
     this.firestoreService.getPosts().subscribe((posts) => {
-      
+
       this.posts = [];
       posts.map(post => {
-       this.posts.push({
+        this.posts.push({
           id: post.payload.doc.id,
           data: post.payload.doc.data()
         })
@@ -31,12 +32,12 @@ export class MainComponent implements OnInit {
     })
   }
 
-  getProducts(){
+  getProducts() {
     this.firestoreService.getProducts().subscribe((products) => {
-      
+
       this.products = [];
       products.map(product => {
-       this.products.push({
+        this.products.push({
           id: product.payload.doc.id,
           data: product.payload.doc.data()
         })
@@ -45,9 +46,9 @@ export class MainComponent implements OnInit {
     })
   }
 
-  getWeeklyMenu(){
+  getWeeklyMenu() {
     this.firestoreService.getWeeklyMenu().subscribe((weeklyMenu) => {
-      
+
       this.weeklyMenu = [];
       weeklyMenu.map(menu => {
 
@@ -56,34 +57,42 @@ export class MainComponent implements OnInit {
         // x.forEach(element => {
         //   console.log('doc:', element);
         // });
-        
 
-       this.weeklyMenu.push({
+        let data = menu.payload.doc.data();
+
+        this.weeklyMenu.push({
           id: menu.payload.doc.id,
-          data: menu.payload.doc.data()
+          data: data
+        });
+
+        this.weeklyMeals = [];
+
+        Object.keys(data).forEach((key) => {
+          // console.log(key, data[key])
+          this.firestore.doc(data[key]).valueChanges().subscribe(x => {
+            //push to the meals array
+            //console.log(x)
+            this.weeklyMeals.push(x);
+  
+          })
+  
         });
 
 
-        console.log('menu: ', menu.payload.doc.data());
+        //console.log('menu: ', menu.payload.doc.data());
+        console.log('weeklyMeals: ', this.weeklyMeals);
       });
 
-      this.weeklyMenu.forEach(element => {
-          
-        let x: DocumentReference = element.data as DocumentReference;
 
-        x.get().then( data => {
-         console.log('data:', data);
-        })
-        
-      });
+
 
       console.log('weeklyMenu:', this.weeklyMenu);
     })
   }
 
 
-  
-  deletePost(id:string, image: string){
+
+  deletePost(id: string, image: string) {
     console.log(image)
     console.log(id)
     this.firestoreService.deletePost(id, image);
