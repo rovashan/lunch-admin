@@ -23,7 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule
   ],
-  providers: [AngularFirestore, FireserviceService ,{ provide: StorageBucket, useValue: "gs://firestorage-a8260.appspot.com"}],
+  providers: [AngularFirestore, FireserviceService ,{ provide: StorageBucket, useValue: "gs://lunchpal-6437d.appspot.com"}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
